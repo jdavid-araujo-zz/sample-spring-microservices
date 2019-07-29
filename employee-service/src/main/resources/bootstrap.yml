@@ -3,5 +3,12 @@ spring:
     name: employeeservice
   profiles:    active:    - default
   cloud:    config:      enabled: true
-      discovery:        enabled: true
-        service-id: configserver
+      #discovery:        #enabled: true
+        #service-id: configserver
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - env
