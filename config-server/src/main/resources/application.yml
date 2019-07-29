@@ -1,0 +1,17 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+      server:
+        encrypt:
+          enabled: false
+        git:
+          uri: https://github.com/jdavid-araujo/config-repo/
+          search-paths:
+          - employeeservice
+          - departmentservice
+          username: jdavid-araujo
+          password: test
