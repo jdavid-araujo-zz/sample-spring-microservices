@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: departmentservice
+  profiles:    active:    - default
+  cloud:    config:      enabled: true
+      #discovery:        #enabled: true
+        #service-id: configserver
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - env
