@@ -1,8 +1,13 @@
 package com.david.employeeservice.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.david.employeeservice.exceptionhandler.exception.EmployeeNotFoundException;
 import com.david.employeeservice.model.Employee;
 import com.david.employeeservice.repository.EmployeeRepository;
 import com.david.employeeservice.service.EmployeeService;
@@ -24,14 +29,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void update(Long id, Employee entity) {
-		// TODO Auto-generated method stub
-		
+		Employee employee = this.findById(id);
+
+		BeanUtils.copyProperties(entity, employee, "id");
+
+		this.save(employee);
 	}
 
 	@Override
 	public Employee findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Employee> entity = this.employeeRepository.findById(id);
+
+		return entity.orElseThrow(() -> new EmployeeNotFoundException());
 	}
 
 	@Override
@@ -42,6 +51,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public void deleteById(Long id) {
 		this.employeeRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Employee> findByDepartmentId(Long id) {
+		return this.employeeRepository.findByDepartmentId(id);
 	}
 
 }

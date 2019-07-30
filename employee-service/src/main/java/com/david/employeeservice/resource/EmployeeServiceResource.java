@@ -1,6 +1,7 @@
 package com.david.employeeservice.resource;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,6 +63,13 @@ public class EmployeeServiceResource implements Serializable{
 	@DeleteMapping(value = "{id}")
 	public void delete(@PathVariable(value = "id", required = true) Long id) {
 		this.employeeService.deleteById(id);
+	}
+	
+	@GetMapping("/departments/{id}")
+	public ResponseEntity<List<Employee>> findByDepartmentId(@PathVariable(value = "id", required = true) Long id) {
+		List<Employee> employees = this.employeeService.findByDepartmentId(id);
+		
+		return ResponseEntity.ok(employees);
 	}
 
 }

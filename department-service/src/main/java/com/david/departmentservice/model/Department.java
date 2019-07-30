@@ -1,10 +1,15 @@
 package com.david.departmentservice.model;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_department")
@@ -17,6 +22,9 @@ public class Department {
 	private String name;
 	
 	private String phone;
+	
+	@Transient
+	Set<Employee> employees = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -42,4 +50,11 @@ public class Department {
 		this.phone = phone;
 	}
 
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
 }
