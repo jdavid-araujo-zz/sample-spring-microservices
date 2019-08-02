@@ -1,6 +1,7 @@
 package com.david.departmentservice.resource;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,10 @@ public class DepartmentServiceResource implements Serializable {
 	
 	private DepartmentService departmentService;
 	
-	private EmployeeFeignClient employeeFeignClient;
 	
 	@Autowired
-	public DepartmentServiceResource(DepartmentService departmentService,
-									 EmployeeFeignClient employeeFeignClient) {
+	public DepartmentServiceResource(DepartmentService departmentService) {
 		this.departmentService = departmentService;
-		this.employeeFeignClient = employeeFeignClient;
 	}
 
 	@PostMapping
@@ -43,7 +41,7 @@ public class DepartmentServiceResource implements Serializable {
 	public ResponseEntity<Department> findDepartmentWithEmployees(@PathVariable(value = "id", required = true) Long id) {
 		Department department = this.departmentService.findById(id);
 		
-		Set<Employee> employees =  this.employeeFeignClient.findByDepartmentId(id);
+		Set<Employee> employees =  this.departmentService.findByDepartmentId(id);
 		
 		department.setEmployees(employees);
 		
